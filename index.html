@@ -1,121 +1,1053 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-
-  <title>Hexenmeister-Akademie</title>
-
-  <style>
-    body {
-      margin: 0;
-      padding: 25px 15px;
-      background: #17172f;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    h1 {
-      color: #e8c9ff;
-    }
-
-    .kacheln {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      max-width: 800px;
-      margin: 30px auto;
-    }
-
-    .kachel {
-      background: #353157;
-      border-radius: 18px;
-      padding: 25px 10px;
-      color: white;
-      text-decoration: none;
-      min-height: 110px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .kachel:hover,
-    .kachel:focus-visible {
-      background: #514779;
-      outline: 2px solid #e8c9ff;
-    }
-
-    .symbol {
-      font-size: 35px;
-    }
-
-    .kachel strong {
-      font-size: 18px;
-    }
-
-    .kachel span:last-child {
-      font-size: 13px;
-      color: #d5cfe5;
-    }
-
-    @media (max-width: 360px) {
-      .kacheln {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17142d">
+<title>Hexen-Akademie | Dein magisches Alltagsabenteuer</title>
+<style>
+:root {
+  --bg:#14132b;
+  --panel:#272346;
+  --purple:#c7a7ff;
+  --text:#ffffff;
+  --muted:#ddd6ee;
+  --border:#67558c;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.6 Arial,sans-serif;
+}
+body.large { font-size:20px; }
+body.contrast {
+  --bg:#000;
+  --panel:#171717;
+  --purple:#ffe65c;
+  --border:#fff;
+  --muted:#fff;
+}
+header {
+  padding:25px 15px;
+  text-align:center;
+  background:#211c3c;
+}
+body.contrast header { background:#111; }
+h1,h2,h3 { line-height:1.3; }
+h1 { color:var(--purple); margin:0; }
+h2 { color:var(--purple); }
+a { color:var(--purple); }
+button,input,select,textarea {
+  font:inherit;
+  border-radius:10px;
+  padding:11px;
+}
+button {
+  border:0;
+  background:var(--purple);
+  color:#171126;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover { filter:brightness(1.1); }
+button:disabled { opacity:.5; cursor:default; }
+button:focus-visible,a:focus-visible,
+input:focus-visible,select:focus-visible {
+  outline:3px solid #fff;
+  outline-offset:3px;
+}
+input,select,textarea {
+  max-width:100%;
+  background:white;
+  color:#171126;
+  border:1px solid #777;
+}
+nav {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  padding:14px;
+  background:#201b39;
+}
+nav button { font-size:.9em; }
+main {
+  max-width:1050px;
+  margin:auto;
+  padding:20px 15px;
+  min-height:60vh;
+}
+section { display:none; }
+section.active { display:block; }
+.card {
+  padding:20px;
+  margin:14px 0;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:15px;
+}
+.grid .card { margin:0; }
+.row {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:12px 0;
+}
+.row span { flex:1; min-width:120px; }
+label { display:block; margin:12px 0; }
+label input:not([type="checkbox"]),
+label select,textarea {
+  display:block;
+  width:100%;
+  margin-top:5px;
+}
+small,.muted { color:var(--muted); }
+footer {
+  text-align:center;
+  background:#211c3c;
+  padding:25px 12px;
+}
+footer a { margin:0 9px; }
+#searchResults { margin-top:10px; }
+#searchResults button {
+  display:block;
+  width:100%;
+  margin:5px 0;
+  text-align:left;
+}
+#notice {
+  min-height:24px;
+  color:#d6ffb8;
+}
+.stats {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.stats strong {
+  background:var(--panel);
+  border-radius:10px;
+  padding:10px;
+}
+@media(max-width:500px) {
+  nav button { flex:1 1 40%; }
+  header { padding:18px 10px; }
+}
+</style>
 </head>
-
 <body>
 
-  <h1>🪄 Hexenmeister-Akademie</h1>
-  <p>Entdecke deine magische Welt!</p>
+<header>
+  <h1>🌙 Hexen-Akademie</h1>
+  <p>Dein magisches Alltagsabenteuer ✨</p>
+  <label>
+    Aktives Profil
+    <select id="activeProfile"></select>
+  </label>
+  <div class="stats" style="justify-content:center">
+    <strong id="score">⭐ 0</strong>
+  </div>
+</header>
 
-  <main class="kacheln">
+<nav aria-label="Hauptnavigation">
+  <button data-page="start">🏠 Start</button>
+  <button data-page="aufgaben">🏰 Zauberakademie</button>
+  <button data-page="karten">🪄 Zauberkarten</button>
+  <button data-page="hexenbuch">📖 Hexenbuch</button>
+  <button data-page="erfolge">⭐ Erfolge</button>
+  <button data-page="belohnungen">🎁 Belohnungen</button>
+  <button data-page="profile">🧙 Profile</button>
+  <button data-page="ueber">💜 Über mich</button>
+  <button data-page="hilfe">❓ Hilfe</button>
+</nav>
 
-    <a class="kachel" href="akademie.html">
-      <span class="symbol">✨</span>
-      <strong>Zauberakademie</strong>
-      <span>Aufgaben & Abenteuer</span>
-    </a>
+<main>
+<p id="notice" role="status"></p>
 
-    <a class="kachel" href="hexenbuch.html">
-      <span class="symbol">📖</span>
-      <strong>Hexenbuch</strong>
-      <span>Deine Geschichten</span>
-    </a>
+<section id="start" class="active">
+  <h2>Willkommen in deiner Zauberwelt!</h2>
+  <p>Jeder kleine Schritt ist ein Stück Magie.</p>
 
-    <a class="kachel" href="karten.html">
-      <span class="symbol">🃏</span>
-      <strong>Zauberkarten</strong>
-      <span>Karten entdecken</span>
-    </a>
+  <div class="card">
+    <label for="search">🔎 Was suchst du?</label>
+    <input id="search" type="search"
+      placeholder="Aufgaben, Hexenbuch, Hilfe ...">
+    <div id="searchResults"></div>
+  </div>
 
-    <a class="kachel" href="erfolge.html">
-      <span class="symbol">⭐</span>
-      <strong>Zaubererfolge</strong>
-      <span>Sterne sammeln</span>
-    </a>
+  <div class="grid">
+    <div class="card">
+      <h3>🏰 Zauberakademie</h3>
+      <p>Plane und erledige deine Aufgaben.</p>
+      <button data-page="aufgaben">Öffnen</button>
+    </div>
+    <div class="card">
+      <h3>🪄 Zauberkarten</h3>
+      <p>Verbinde Aufgaben mit Kartencodes.</p>
+      <button data-page="karten">Öffnen</button>
+    </div>
+    <div class="card">
+      <h3>📖 Hexenbuch</h3>
+      <p>Dein persönliches Erinnerungstagebuch.</p>
+      <button data-page="hexenbuch">Öffnen</button>
+    </div>
+    <div class="card">
+      <h3>⭐ Erfolge</h3>
+      <p>Entdecke deine Fortschritte.</p>
+      <button data-page="erfolge">Öffnen</button>
+    </div>
+    <div class="card">
+      <h3>🎁 Belohnungen</h3>
+      <p>Nutze deine gesammelten Sterne.</p>
+      <button data-page="belohnungen">Öffnen</button>
+    </div>
+    <div class="card">
+      <h3>🧙 Mein Profil</h3>
+      <p>Gestalte deine Zauberwelt.</p>
+      <button data-page="profile">Öffnen</button>
+    </div>
+  </div>
+</section>
 
-    <a class="kachel" href="eltern.html">
-      <span class="symbol">👨‍👩‍👧</span>
-      <strong>Elternbereich</strong>
-      <span>Einstellungen</span>
-    </a>
+<section id="aufgaben">
+  <h2>🏰 Meine Zauberaufgaben</h2>
+  <p>Du entscheidest, welche Aufgabe du erledigst.</p>
 
-    <a class="kachel" href="hilfe.html">
-      <span class="symbol">❓</span>
-      <strong>Hilfe</strong>
-      <span>So funktioniert's</span>
-    </a>
+  <div class="card">
+    <h3>Neue Aufgabe</h3>
+    <form id="taskForm">
+      <label>Aufgabenname
+        <input id="taskName" required maxlength="100"
+          placeholder="z. B. Zähne putzen">
+      </label>
+      <label>Bereich
+        <select id="taskDomain">
+          <option value="stars">⭐ Familie</option>
+          <option value="books">📚 Schule</option>
+          <option value="coins">🪙 Arbeit</option>
+        </select>
+      </label>
+      <label>Kartencode (optional)
+        <input id="taskCode" maxlength="80"
+          placeholder="z. B. KARTE-001">
+      </label>
+      <button>Aufgabe hinzufügen</button>
+    </form>
+  </div>
+  <div id="taskList"></div>
+</section>
 
-  </main>
+<section id="karten">
+  <h2>🪄 Meine Zauberkarten</h2>
+  <p>Jeder Kartencode kann einer Aufgabe zugeordnet werden.</p>
+  <div class="card">
+    <label>Kartencode eingeben
+      <input id="scanCode" maxlength="80"
+        placeholder="z. B. KARTE-001">
+    </label>
+    <button id="scanButton">Karte bestätigen</button>
+    <p id="nfcStatus" class="muted"></p>
+    <button id="nfcButton">NFC-Lesegerät starten</button>
+  </div>
+  <div id="cardList"></div>
+  <small>
+    NFC benötigt ein kompatibles Android-Gerät,
+    einen unterstützten Browser und HTTPS.
+    Die Kartencodes sind noch keine sicheren
+    Elternbestätigungen.
+  </small>
+</section>
 
-  <p>✨ Lernen · Spielen · Zaubern ✨</p>
+<section id="hexenbuch">
+  <h2>📖 Mein Hexenbuch</h2>
+  <div class="card">
+    <p>
+      Private Hexenbücher benötigen eine sichere
+      Ende-zu-Ende-Verschlüsselung.
+    </p>
+    <p>
+      Deshalb werden hier noch keine persönlichen
+      Tagebucheinträge, Fotos oder Sprachaufnahmen
+      gespeichert.
+    </p>
+    <p>
+      Dieser Bereich wird mit verschlüsselten
+      Benutzerkonten, Freigaben und sicherer
+      Wiederherstellung ergänzt.
+    </p>
+  </div>
+</section>
 
+<section id="erfolge">
+  <h2>⭐ Meine Erfolge</h2>
+  <div id="achievementStats"></div>
+</section>
+
+<section id="belohnungen">
+  <h2>🎁 Meine Belohnungen</h2>
+  <div class="card">
+    <h3>Neue Belohnung</h3>
+    <form id="rewardForm">
+      <label>Belohnung
+        <input id="rewardName" required maxlength="100"
+          placeholder="z. B. 10 Minuten spielen">
+      </label>
+      <label>Kosten in Sternen
+        <input id="rewardCost" type="number"
+          min="1" max="10000" value="10" required>
+      </label>
+      <button>Belohnung hinzufügen</button>
+    </form>
+  </div>
+  <div id="rewardList"></div>
+  <p>
+    <small>
+      Liebe, Fürsorge, Essen und andere Grundbedürfnisse
+      sind keine Belohnungen, die verdient werden müssen.
+    </small>
+  </p>
+</section>
+
+<section id="profile">
+  <h2>🧙 Meine Profile</h2>
+  <div class="card">
+    <form id="profileForm">
+      <label>Neuer Profilname
+        <input id="profileName" required maxlength="50">
+      </label>
+      <button>Profil erstellen</button>
+    </form>
+  </div>
+  <div id="profileList"></div>
+  <div class="card">
+    <label>
+      <input id="carryPoints" type="checkbox">
+      Nicht eingelöste Punkte behalten
+    </label>
+    <p>
+      <small>
+        Die täglichen Erledigungen werden beim nächsten
+        Tageswechsel zurückgesetzt.
+      </small>
+    </p>
+  </div>
+  <div class="card">
+    <h3>Barrierefreiheit</h3>
+    <label>
+      <input id="largeText" type="checkbox">
+      Größere Schrift
+    </label>
+    <label>
+      <input id="highContrast" type="checkbox">
+      Hoher Kontrast
+    </label>
+  </div>
+  <div class="card">
+    <h3>Datensicherung</h3>
+    <button id="exportButton">Sicherung herunterladen</button>
+    <label>Sicherung wiederherstellen
+      <input id="importFile" type="file" accept=".json">
+    </label>
+    <small>
+      Die Sicherungsdatei ist nicht verschlüsselt.
+      Bitte sicher aufbewahren.
+    </small>
+  </div>
+</section>
+
+<section id="ueber">
+  <h2>💜 Über mich</h2>
+  <div class="card">
+    <h3>Die Idee hinter der Hexen-Akademie</h3>
+    <p>
+      Die Hexen-Akademie soll Menschen dabei helfen,
+      ihren Alltag selbstbestimmt und spielerisch
+      zu gestalten.
+    </p>
+    <p>
+      Kinder, Jugendliche und Erwachsene können
+      eigene Aufgaben wählen, Fortschritte entdecken
+      und ihre persönlichen Stärken entwickeln.
+    </p>
+    <p>
+      Besonders wichtig sind Inklusion,
+      Barrierefreiheit und die Möglichkeit,
+      das eigene Tempo zu bestimmen.
+    </p>
+    <p>
+      Hier kannst du später deine persönliche
+      Geschichte und deine Motivation ergänzen.
+    </p>
+  </div>
+</section>
+
+<section id="hilfe">
+  <h2>❓ Hilfe</h2>
+  <div class="card">
+    <h3>Wie funktioniert die Hexen-Akademie?</h3>
+    <p>
+      1. Erstelle ein Profil.
+    </p>
+    <p>
+      2. Lege deine eigenen Aufgaben an.
+    </p>
+    <p>
+      3. Erledige Aufgaben in beliebiger Reihenfolge.
+    </p>
+    <p>
+      4. Sammle Sterne, Bücher oder Münzen.
+    </p>
+    <p>
+      5. Nutze Sterne für selbst festgelegte Belohnungen.
+    </p>
+  </div>
+  <div class="card">
+    <h3>Häufige Fragen</h3>
+    <details>
+      <summary>Muss ich Aufgaben in einer Reihenfolge erledigen?</summary>
+      <p>Nein. Du entscheidest selbst.</p>
+    </details>
+    <details>
+      <summary>Wie viele Punkte gibt es?</summary>
+      <p>Eine erledigte Aufgabe bringt einen Punkt.</p>
+    </details>
+    <details>
+      <summary>Wer kann meine Daten sehen?</summary>
+      <p>
+        Diese erste Version speichert Daten nur
+        im jeweiligen Browser. Für geschützte
+        Online-Konten wird eine sichere
+        Rechteverwaltung benötigt.
+      </p>
+    </details>
+  </div>
+</section>
+
+<section id="impressum">
+  <h2>Impressum</h2>
+  <div class="card">
+    <p>
+      Vor der öffentlichen geschäftlichen Nutzung
+      müssen hier die gesetzlich erforderlichen
+      Angaben des verantwortlichen Anbieters stehen.
+    </p>
+    <p>
+      Anbieter: [vollständiger Name]<br>
+      Anschrift: [ladungsfähige Anschrift]<br>
+      Kontakt: [E-Mail-Adresse]
+    </p>
+    <p>
+      Weitere Angaben können je nach Rechtsform
+      und Tätigkeit erforderlich sein.
+    </p>
+  </div>
+</section>
+
+<section id="datenschutz">
+  <h2>Datenschutz</h2>
+  <div class="card">
+    <p>
+      Diese erste Version speichert Profile,
+      Aufgaben und Belohnungen im lokalen
+      Speicher des Browsers.
+    </p>
+    <p>
+      Es werden durch diesen Anwendungscode
+      keine Benutzerkonten an einen eigenen
+      Server übertragen.
+    </p>
+    <p>
+      Der Hosting-Anbieter kann technisch
+      erforderliche Zugriffsdaten verarbeiten.
+    </p>
+    <p>
+      Vor dem öffentlichen Betrieb ist eine
+      vollständige Datenschutzerklärung
+      erforderlich, die die tatsächlichen
+      Verarbeitungen und Anbieter beschreibt.
+    </p>
+  </div>
+</section>
+
+<section id="kontakt">
+  <h2>Kontakt</h2>
+  <div class="card">
+    <p>
+      Hier wird später die offizielle
+      Kontaktadresse der Hexen-Akademie stehen.
+    </p>
+    <p>E-Mail: [Kontaktadresse ergänzen]</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>🌙 Hexen-Akademie © 2026</p>
+  <a href="#impressum" data-link="impressum">Impressum</a>
+  <a href="#datenschutz" data-link="datenschutz">Datenschutz</a>
+  <a href="#kontakt" data-link="kontakt">Kontakt</a>
+  <a href="#hilfe" data-link="hilfe">Hilfe</a>
+</footer>
+
+<script>
+"use strict";
+
+const KEY = "hexen-akademie-v2";
+const $ = id => document.getElementById(id);
+
+function day() {
+  const d = new Date();
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function uid() {
+  return crypto.randomUUID();
+}
+
+function makeProfile(name) {
+  return {
+    id:uid(),
+    name,
+    date:day(),
+    carry:true,
+    stars:0,
+    books:0,
+    coins:0,
+    tasks:[],
+    rewards:[]
+  };
+}
+
+function load() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY));
+    if (saved &&
+        Array.isArray(saved.profiles) &&
+        saved.profiles.length) {
+      return saved;
+    }
+  } catch {}
+  const p = makeProfile("Mein Profil");
+  return {profiles:[p],active:p.id};
+}
+
+let data = load();
+
+function save() {
+  try {
+    localStorage.setItem(KEY,JSON.stringify(data));
+  } catch {
+    message("Speichern fehlgeschlagen. Speicher prüfen.");
+  }
+}
+
+function profile() {
+  return data.profiles.find(p=>p.id===data.active)
+    || data.profiles[0];
+}
+
+function message(text) {
+  $("notice").textContent = text;
+}
+
+function resetDay() {
+  let changed = false;
+  for (const p of data.profiles) {
+    if (p.date !== day()) {
+      p.date = day();
+      for (const t of p.tasks) {
+        t.done = false;
+        t.bonus = false;
+      }
+      if (!p.carry) {
+        p.stars = 0;
+        p.books = 0;
+        p.coins = 0;
+      }
+      changed = true;
+    }
+  }
+  if (changed) save();
+}
+
+function show(id) {
+  const section = $(id);
+  if (!section) return;
+  document.querySelectorAll("main section")
+    .forEach(s=>s.classList.toggle("active",s.id===id));
+  history.replaceState(null,"","#"+id);
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-page]")
+  .forEach(b=>{
+    b.addEventListener("click",()=>show(b.dataset.page));
+  });
+
+document.querySelectorAll("[data-link]")
+  .forEach(a=>{
+    a.addEventListener("click",e=>{
+      e.preventDefault();
+      show(a.dataset.link);
+    });
+  });
+
+function el(tag,text) {
+  const e = document.createElement(tag);
+  e.textContent = text;
+  return e;
+}
+
+function button(text,callback) {
+  const b = el("button",text);
+  b.type = "button";
+  b.onclick = callback;
+  return b;
+}
+
+function card() {
+  const c = document.createElement("div");
+  c.className = "card";
+  return c;
+}
+
+function completeTask(t) {
+  const p = profile();
+  if (t.done) return;
+  t.done = true;
+  p[t.domain]++;
+  save();
+  render();
+  message("Aufgabe erledigt! +1 Punkt ✨");
+}
+
+function renderTasks() {
+  const p = profile();
+  const list = $("taskList");
+  list.replaceChildren();
+
+  for (const t of p.tasks) {
+    const c = card();
+    c.append(el("h3",t.name));
+    const symbol = {
+      stars:"⭐",books:"📚",coins:"🪙"
+    }[t.domain];
+    c.append(el("p",
+      `${symbol} ${t.done?"Erledigt ✓":"Noch offen"}`
+    ));
+
+    const row = document.createElement("div");
+    row.className = "row";
+
+    const done = button(
+      t.done?"✓ Erledigt":"Erledigt",
+      ()=>completeTask(t)
+    );
+    done.disabled = t.done;
+    row.append(done);
+
+    const bonus = button(
+      t.bonus?"Bonus vergeben":"+1 Bonus",
+      ()=>{
+        if (!t.done || t.bonus) return;
+        if (!confirm("Bonuspunkt vergeben?")) return;
+        t.bonus = true;
+        p[t.domain]++;
+        save();
+        render();
+      }
+    );
+    bonus.disabled = !t.done || t.bonus;
+    row.append(bonus);
+
+    row.append(button("Löschen",()=>{
+      if (!confirm("Aufgabe löschen?")) return;
+      p.tasks = p.tasks.filter(x=>x.id!==t.id);
+      save();
+      render();
+    }));
+
+    c.append(row);
+    list.append(c);
+  }
+
+  if (!p.tasks.length) {
+    list.append(el("p","Noch keine Aufgaben vorhanden."));
+  }
+}
+
+$("taskForm").onsubmit = e => {
+  e.preventDefault();
+  const p = profile();
+  const name = $("taskName").value.trim();
+  const code = $("taskCode").value.trim();
+  if (!name) return;
+
+  if (code && p.tasks.some(t=>t.code===code)) {
+    message("Dieser Kartencode ist bereits vergeben.");
+    return;
+  }
+
+  p.tasks.push({
+    id:uid(),
+    name,
+    domain:$("taskDomain").value,
+    code,
+    done:false,
+    bonus:false
+  });
+
+  $("taskForm").reset();
+  save();
+  render();
+  message("Aufgabe gespeichert.");
+};
+
+function renderCards() {
+  const list = $("cardList");
+  list.replaceChildren();
+
+  for (const t of profile().tasks.filter(x=>x.code)) {
+    const c = card();
+    c.append(el("strong",t.name));
+    c.append(el("p","Kartencode: "+t.code));
+    list.append(c);
+  }
+}
+
+function processCode(code) {
+  const t = profile().tasks.find(x=>x.code===code);
+  if (!t) {
+    message("Keine Aufgabe zu diesem Kartencode gefunden.");
+    return;
+  }
+  if (t.done) {
+    message("Diese Aufgabe wurde heute bereits erledigt.");
+    return;
+  }
+  completeTask(t);
+}
+
+$("scanButton").onclick = () => {
+  processCode($("scanCode").value.trim());
+};
+
+$("nfcButton").onclick = async () => {
+  if (!("NDEFReader" in window)) {
+    $("nfcStatus").textContent =
+      "NFC-Lesen wird hier nicht unterstützt.";
+    return;
+  }
+  try {
+    const reader = new NDEFReader();
+    await reader.scan();
+    $("nfcStatus").textContent =
+      "NFC bereit. Bitte Karte an das Gerät halten.";
+
+    reader.onreading = event => {
+      for (const record of event.message.records) {
+        if (record.recordType === "text") {
+          const text = new TextDecoder(
+            record.encoding || "utf-8"
+          ).decode(record.data);
+          processCode(text);
+          break;
+        }
+      }
+    };
+
+    reader.onreadingerror = () => {
+      $("nfcStatus").textContent =
+        "Karte konnte nicht gelesen werden.";
+    };
+  } catch {
+    $("nfcStatus").textContent =
+      "NFC konnte nicht gestartet werden.";
+  }
+};
+
+function renderRewards() {
+  const p = profile();
+  const list = $("rewardList");
+  list.replaceChildren();
+
+  for (const r of p.rewards) {
+    const c = card();
+    c.append(el("h3",r.name));
+    c.append(el("p",`⭐ ${r.cost}`));
+
+    const redeem = button("Einlösen",()=>{
+      if (p.stars < r.cost) return;
+      if (!confirm("Belohnung einlösen?")) return;
+      p.stars -= r.cost;
+      save();
+      render();
+      message("Belohnung eingelöst!");
+    });
+    redeem.disabled = p.stars < r.cost;
+    c.append(redeem);
+
+    c.append(button("Löschen",()=>{
+      if (!confirm("Belohnung löschen?")) return;
+      p.rewards = p.rewards.filter(x=>x.id!==r.id);
+      save();
+      render();
+    }));
+
+    list.append(c);
+  }
+}
+
+$("rewardForm").onsubmit = e => {
+  e.preventDefault();
+  const name = $("rewardName").value.trim();
+  const cost = Number($("rewardCost").value);
+  if (!name || !Number.isInteger(cost) ||
+      cost < 1 || cost > 10000) return;
+
+  profile().rewards.push({id:uid(),name,cost});
+  $("rewardForm").reset();
+  save();
+  render();
+};
+
+function renderProfiles() {
+  const list = $("profileList");
+  list.replaceChildren();
+
+  for (const p of data.profiles) {
+    const c = card();
+    c.append(el("h3",p.name));
+
+    c.append(button("Auswählen",()=>{
+      data.active = p.id;
+      save();
+      render();
+    }));
+
+    c.append(button("Umbenennen",()=>{
+      const name = prompt("Neuer Profilname:",p.name);
+      if (!name || !name.trim()) return;
+      p.name = name.trim().slice(0,50);
+      save();
+      render();
+    }));
+
+    if (data.profiles.length>1) {
+      c.append(button("Löschen",()=>{
+        if (!confirm("Profil mit allen Daten löschen?"))
+          return;
+        data.profiles = data.profiles
+          .filter(x=>x.id!==p.id);
+        if (data.active===p.id) {
+          data.active=data.profiles[0].id;
+        }
+        save();
+        render();
+      }));
+    }
+    list.append(c);
+  }
+}
+
+$("profileForm").onsubmit = e => {
+  e.preventDefault();
+  const name = $("profileName").value.trim();
+  if (!name) return;
+  const p = makeProfile(name);
+  data.profiles.push(p);
+  data.active = p.id;
+  $("profileForm").reset();
+  save();
+  render();
+};
+
+$("activeProfile").onchange = e => {
+  data.active = e.target.value;
+  save();
+  render();
+};
+
+$("carryPoints").onchange = e => {
+  profile().carry = e.target.checked;
+  save();
+};
+
+$("largeText").onchange = e => {
+  document.body.classList.toggle("large",e.target.checked);
+  localStorage.setItem("hex-large",String(e.target.checked));
+};
+
+$("highContrast").onchange = e => {
+  document.body.classList.toggle("contrast",e.target.checked);
+  localStorage.setItem("hex-contrast",String(e.target.checked));
+};
+
+function render() {
+  resetDay();
+  const p = profile();
+  const select = $("activeProfile");
+  select.replaceChildren();
+
+  for (const item of data.profiles) {
+    select.add(new Option(item.name,item.id));
+  }
+  select.value = p.id;
+
+  $("score").textContent =
+    `⭐ ${p.stars}  📚 ${p.books}  🪙 ${p.coins}`;
+
+  $("carryPoints").checked = p.carry;
+
+  const completed = p.tasks.filter(t=>t.done).length;
+  $("achievementStats").replaceChildren();
+
+  const c = card();
+  c.append(el("h3","Dein Fortschritt"));
+  c.append(el("p",
+    `Heute erledigt: ${completed} von ${p.tasks.length}`
+  ));
+  c.append(el("p",
+    `⭐ Sterne: ${p.stars}`
+  ));
+  c.append(el("p",
+    `📚 Bücher: ${p.books}`
+  ));
+  c.append(el("p",
+    `🪙 Münzen: ${p.coins}`
+  ));
+  $("achievementStats").append(c);
+
+  renderTasks();
+  renderCards();
+  renderRewards();
+  renderProfiles();
+}
+
+$("search").oninput = e => {
+  const query = e.target.value.trim().toLowerCase();
+  const results = $("searchResults");
+  results.replaceChildren();
+  if (!query) return;
+
+  const pages = [
+    ["start","Startseite"],
+    ["aufgaben","Aufgaben Zauberakademie"],
+    ["karten","NFC Zauberkarten"],
+    ["hexenbuch","Hexenbuch Erinnerungen"],
+    ["erfolge","Erfolge Sterne Bücher Münzen"],
+    ["belohnungen","Belohnungen"],
+    ["profile","Profile Einstellungen"],
+    ["ueber","Über mich"],
+    ["hilfe","Hilfe Fragen"],
+    ["kontakt","Kontakt"],
+    ["datenschutz","Datenschutz"],
+    ["impressum","Impressum"]
+  ];
+
+  for (const [id,title] of pages) {
+    if (title.toLowerCase().includes(query)) {
+      results.append(button(title,()=>show(id)));
+    }
+  }
+
+  for (const t of profile().tasks) {
+    if (t.name.toLowerCase().includes(query)) {
+      results.append(button("Aufgabe: "+t.name,
+        ()=>show("aufgaben")));
+    }
+  }
+
+  if (!results.children.length) {
+    results.append(el("p","Keine Ergebnisse gefunden."));
+  }
+};
+
+$("exportButton").onclick = () => {
+  const blob = new Blob(
+    [JSON.stringify(data,null,2)],
+    {type:"application/json"}
+  );
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "hexen-akademie-sicherung.json";
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+
+$("importFile").onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  try {
+    const incoming = JSON.parse(await file.text());
+    if (!incoming ||
+        !Array.isArray(incoming.profiles) ||
+        !incoming.profiles.length ||
+        !incoming.profiles.every(p=>
+          typeof p.id==="string" &&
+          typeof p.name==="string" &&
+          Array.isArray(p.tasks) &&
+          Array.isArray(p.rewards) &&
+          ["stars","books","coins"].every(k=>
+            Number.isFinite(p[k]) && p[k]>=0
+          ) &&
+          p.tasks.every(t=>
+            typeof t.name==="string" &&
+            ["stars","books","coins"].includes(t.domain)
+          ) &&
+          p.rewards.every(r=>
+            typeof r.name==="string" &&
+            Number.isInteger(r.cost) && r.cost>0
+          )
+        )) {
+      throw new Error("Ungültig");
+    }
+    if (!confirm("Alle bisherigen Daten ersetzen?")) return;
+    data = incoming;
+    data.active = data.profiles.some(p=>p.id===incoming.active)
+      ? incoming.active : data.profiles[0].id;
+    save();
+    render();
+    message("Sicherung importiert.");
+  } catch {
+    message("Sicherung konnte nicht importiert werden.");
+  }
+};
+
+document.body.classList.toggle(
+  "large",localStorage.getItem("hex-large")==="true"
+);
+document.body.classList.toggle(
+  "contrast",localStorage.getItem("hex-contrast")==="true"
+);
+$("largeText").checked =
+  localStorage.getItem("hex-large")==="true";
+$("highContrast").checked =
+  localStorage.getItem("hex-contrast")==="true";
+
+render();
+const initial = location.hash.slice(1);
+if (initial && $(initial)) show(initial);
+
+document.addEventListener("visibilitychange",()=>{
+  if (!document.hidden) render();
+});
+</script>
 </body>
 </html>
