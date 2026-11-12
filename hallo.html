@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17142d">
+<title>Magie-Akademie – Dein magisches Alltagsabenteuer</title>
+<style>
+:root {
+  --bg:#14142d;
+  --panel:#272347;
+  --accent:#d5b8ff;
+  --text:#ffffff;
+  --muted:#e2dcf1;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  font-size:17px;
+  line-height:1.7;
+  color:var(--text);
+  background:var(--bg);
+}
+header {
+  text-align:center;
+  padding:24px 15px;
+  background:#211d3c;
+}
+.logo {
+  font-size:2rem;
+  font-weight:bold;
+  color:var(--accent);
+}
+nav {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+  padding:12px;
+}
+a { color:var(--accent); }
+nav a { text-decoration:none; font-weight:bold; }
+main {
+  max-width:850px;
+  margin:auto;
+  padding:25px 16px;
+}
+.hero {
+  text-align:center;
+  padding:35px 15px;
+}
+.hero .symbol { font-size:4rem; }
+h1,h2 { color:var(--accent); line-height:1.3; }
+h1 { font-size:2.2rem; }
+h2 { font-size:1.5rem; }
+.card {
+  background:var(--panel);
+  padding:25px;
+  margin:22px 0;
+  border-radius:20px;
+  border:1px solid #5f5184;
+}
+.buttons {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:25px 0;
+}
+.button {
+  display:inline-block;
+  padding:14px 24px;
+  background:var(--accent);
+  color:#17142d;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:bold;
+  text-align:center;
+}
+.button.secondary {
+  background:transparent;
+  border:2px solid var(--accent);
+  color:var(--accent);
+}
+.search {
+  width:100%;
+  padding:13px;
+  font:inherit;
+  border-radius:12px;
+  border:2px solid #a78be4;
+}
+#results a {
+  display:block;
+  padding:10px;
+  margin:6px 0;
+  background:var(--panel);
+  border-radius:10px;
+}
+footer {
+  text-align:center;
+  padding:30px 15px;
+  background:#211d3c;
+}
+footer a {
+  display:inline-block;
+  margin:5px 10px;
+}
+small { color:var(--muted); }
+section { scroll-margin-top:20px; }
+@media(max-width:550px) {
+  h1 { font-size:1.8rem; }
+  .card { padding:18px; }
+  .buttons .button { width:100%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌙 Magie-Akademie ✨</div>
+  <p>Dein magisches Alltagsabenteuer</p>
+
+  <nav aria-label="Hauptnavigation">
+    <a href="#start">Startseite</a>
+    <a href="#ueber">Über mich</a>
+    <a href="#suche">Suche</a>
+    <a href="#hilfe">Hilfe</a>
+  </nav>
+</header>
+
+<main>
+  <section id="start" class="hero">
+    <div class="symbol" aria-hidden="true">🏰✨</div>
+    <h1>Willkommen in der Magie-Akademie!</h1>
+    <p>
+      Entdecke die Magie in deinem Alltag.
+      Jeder kleine Schritt zählt!
+    </p>
+
+    <div class="buttons">
+      <a class="button" href="zauberakademie.html">
+        ✨ Abenteuer beginnen
+      </a>
+      <a class="button secondary" href="#willkommen">
+        💜 Mehr erfahren
+      </a>
+    </div>
+  </section>
+
+  <section id="willkommen" class="card">
+    <h2>🌟 Willkommen, kleine und große Magiewesen!</h2>
+
+    <p>
+      In der Magie-Akademie lernen wir, unseren Alltag
+      wertzuschätzen und erfolgreich zu meistern.
+    </p>
+
+    <p>
+      Jeden Tag begegnen uns neue Aufgaben und manchmal
+      auch Hindernisse. Nicht immer gelingt alles sofort.
+      Doch jeder kleine Schritt zählt!
+    </p>
+
+    <p>
+      Wenn wir am Abend auf unseren Tag zurückblicken und
+      sehen, wie viele ⭐ Sterne, 📚 Bücher oder 🪙 Münzen
+      wir gesammelt haben, können wir stolz auf das sein,
+      was wir geschafft haben.
+    </p>
+
+    <p>
+      Denn jede Erfahrung bringt uns ein Stück weiter
+      und lässt uns persönlich wachsen.
+    </p>
+
+    <h2>Hast du Lust auf dieses Abenteuer?</h2>
+
+    <p>
+      Dann erzähle deinen Eltern oder einer anderen
+      vertrauten Betreuungsperson von der Magie-Akademie.
+      Gemeinsam könnt ihr ein Profil für dich anlegen
+      und dein Abenteuer beginnen!
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>💜 Liebe Eltern und Betreuungspersonen!</h2>
+
+    <p>Herzlich willkommen in der Magie-Akademie!</p>
+
+    <p>
+      Dieses System soll euch dabei unterstützen,
+      den Alltag mit Kindern leichter, spielerischer
+      und mit mehr Freude zu gestalten.
+    </p>
+
+    <p>
+      Gemeinsam könnt ihr Aufgaben auswählen,
+      kleine und große Erfolge sichtbar machen
+      und eure Kinder dabei begleiten,
+      selbstständiger zu werden.
+    </p>
+
+    <p>
+      Dabei geht es nicht um Perfektion,
+      sondern um Motivation, Wertschätzung
+      und persönliche Entwicklung.
+    </p>
+
+    <p>
+      Legt ein Profil für euer Kind an und entdeckt
+      gemeinsam, wie aus alltäglichen Aufgaben
+      kleine magische Abenteuer werden können.
+    </p>
+
+    <p>
+      <strong>
+        Denn manchmal steckt die größte Magie
+        in den kleinen Dingen des Alltags. ✨
+      </strong>
+    </p>
+
+    <div class="buttons">
+      <a class="button" href="zauberakademie.html">
+        🧙 Profil und Aufgaben öffnen
+      </a>
+    </div>
+  </section>
+
+  <section id="suche" class="card">
+    <h2>🔎 Suche</h2>
+    <label for="search">Was möchtest du finden?</label>
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="z. B. Aufgaben, Eltern, Kontakt"
+    >
+    <div id="results" aria-live="polite"></div>
+  </section>
+
+  <section id="ueber" class="card">
+    <h2>💜 Über mich</h2>
+    <p>
+      Die Magie-Akademie ist aus der Idee entstanden,
+      Menschen dabei zu helfen, ihren Alltag
+      selbstbestimmt, spielerisch und mit Freude
+      zu gestalten.
+    </p>
+    <p>
+      Mir sind Inklusion, Barrierefreiheit,
+      Wertschätzung und persönliche Entwicklung
+      besonders wichtig.
+    </p>
+    <p>
+      Hier möchte ich später mehr über mich
+      und die Entstehung der Magie-Akademie erzählen.
+    </p>
+  </section>
+
+  <section id="hilfe" class="card">
+    <h2>❓ Hilfe</h2>
+    <h3>Wie funktioniert die Magie-Akademie?</h3>
+    <p>
+      Eine erwachsene Betreuungsperson legt
+      zunächst ein Profil an.
+    </p>
+    <p>
+      Anschließend können Aufgaben ausgewählt
+      und im Alltag erledigt werden.
+    </p>
+    <p>
+      Für erledigte Aufgaben gibt es Sterne,
+      Bücher oder Münzen.
+    </p>
+    <p>
+      So werden Fortschritte sichtbar.
+      Niemand muss perfekt sein.
+    </p>
+    <p>
+      <small>
+        Die aktuelle Version speichert Daten
+        nur im jeweiligen Browser.
+        Sichere Online-Konten folgen später.
+      </small>
+    </p>
+  </section>
+
+  <section id="impressum" class="card">
+    <h2>Impressum</h2>
+    <p>
+      Verantwortliche Person:
+      [vollständigen Namen ergänzen]
+    </p>
+    <p>
+      Anschrift:
+      [ladungsfähige Anschrift ergänzen]
+    </p>
+    <p>
+      E-Mail:
+      [E-Mail-Adresse ergänzen]
+    </p>
+    <p>
+      Weitere Pflichtangaben hängen von
+      der tatsächlichen Tätigkeit ab.
+    </p>
+  </section>
+
+  <section id="datenschutz" class="card">
+    <h2>Datenschutz</h2>
+    <p>
+      Diese Website verwendet derzeit keine
+      eigenen Online-Benutzerkonten.
+    </p>
+    <p>
+      Die verlinkte Aufgabenanwendung kann
+      Daten im lokalen Browserspeicher ablegen.
+    </p>
+    <p>
+      Beim Aufruf der Website kann der
+      Hosting-Anbieter technisch notwendige
+      Zugriffsdaten verarbeiten.
+    </p>
+    <p>
+      Vor der öffentlichen Veröffentlichung
+      ist eine vollständige Datenschutzerklärung
+      für die tatsächliche Datenverarbeitung
+      erforderlich.
+    </p>
+  </section>
+
+  <section id="kontakt" class="card">
+    <h2>📩 Kontakt</h2>
+    <p>
+      Hast du Fragen, Wünsche oder Ideen
+      zur Magie-Akademie?
+    </p>
+    <p>
+      Kontaktadresse:
+      [E-Mail-Adresse ergänzen]
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>🌙 Magie-Akademie © 2026</p>
+  <a href="#impressum">Impressum</a>
+  <a href="#datenschutz">Datenschutz</a>
+  <a href="#kontakt">Kontakt</a>
+  <a href="#hilfe">Hilfe</a>
+</footer>
+
+<script>
+"use strict";
+
+const pages = [
+  ["#start","Startseite"],
+  ["#willkommen","Magie Abenteuer Kinder"],
+  ["#willkommen","Eltern Betreuungspersonen"],
+  ["zauberakademie.html","Aufgaben Zauberakademie Profil"],
+  ["#ueber","Über mich"],
+  ["#hilfe","Hilfe"],
+  ["#kontakt","Kontakt"],
+  ["#impressum","Impressum"],
+  ["#datenschutz","Datenschutz"]
+];
+
+const search = document.getElementById("search");
+const results = document.getElementById("results");
+
+search.addEventListener("input",()=>{
+  const query = search.value.trim().toLowerCase();
+  results.replaceChildren();
+
+  if (!query) return;
+
+  let count = 0;
+
+  for (const [url,title] of pages) {
+    if (title.toLowerCase().includes(query)) {
+      const link = document.createElement("a");
+      link.href = url;
+      link.textContent = title;
+      results.append(link);
+      count++;
+    }
+  }
+
+  if (!count) {
+    const text = document.createElement("p");
+    text.textContent = "Keine Ergebnisse gefunden.";
+    results.append(text);
+  }
+});
+</script>
+
+</body>
+</html>
