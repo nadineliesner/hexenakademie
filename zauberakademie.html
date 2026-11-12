@@ -1,1 +1,227 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zauberakademie | Hexen-Akademie</title>
+<style>
+:root {
+  --bg:#14132b;
+  --card:#29264e;
+  --accent:#c7a8ff;
+  --text:#fff;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font:16px/1.6 Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+header {
+  text-align:center;
+  padding:25px 15px;
+  background:#211c3c;
+}
+h1,h2 { color:var(--accent); }
+main {
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+.card {
+  background:var(--card);
+  padding:20px;
+  margin:15px 0;
+  border-radius:15px;
+}
+button,input,select {
+  padding:12px;
+  font:inherit;
+  border-radius:10px;
+}
+button {
+  border:0;
+  background:var(--accent);
+  color:#18132c;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:disabled { opacity:.5; }
+input,select {
+  width:100%;
+  margin:6px 0 14px;
+}
+label { display:block; }
+.row {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+}
+.row p { flex:1; }
+a { color:var(--accent); }
+footer {
+  text-align:center;
+  padding:20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏰 Zauberakademie</h1>
+  <p>Deine Aufgaben – deine Entscheidung</p>
+  <a href="index.html">← Zur Startseite</a>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Mein Fortschritt</h2>
+    <p id="score">⭐ 0</p>
+    <p id="progress"></p>
+  </div>
+
+  <div class="card">
+    <h2>Neue Aufgabe</h2>
+    <form id="taskForm">
+      <label>Aufgabe
+        <input id="taskName" required maxlength="100"
+          placeholder="z. B. Frühstück vorbereiten">
+      </label>
+      <label>Bereich
+        <select id="taskDomain">
+          <option value="stars">⭐ Familie</option>
+          <option value="books">📚 Schule</option>
+          <option value="coins">🪙 Arbeit</option>
+        </select>
+      </label>
+      <button>Aufgabe hinzufügen</button>
+    </form>
+  </div>
+
+  <h2>Meine Aufgaben</h2>
+  <div id="taskList"></div>
+  <p id="message" role="status"></p>
+</main>
+
+<footer>
+  <a href="index.html">Startseite</a>
+</footer>
+
+<script>
+"use strict";
+
+const KEY = "hexen-akademie-v2";
+const $ = id => document.getElementById(id);
+
+function today() {
+  const d = new Date();
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function load() {
+  try {
+    const data = JSON.parse(localStorage.getItem(KEY));
+    if (data && Array.isArray(data.profiles) &&
+        data.profiles.length) return data;
+  } catch {}
+  return null;
+}
+
+let data = load();
+
+function current() {
+  return data.profiles.find(p=>p.id===data.active)
+    || data.profiles[0];
+}
+
+function save() {
+  localStorage.setItem(KEY,JSON.stringify(data));
+}
+
+function render() {
+  const p = current();
+
+  if (p.date !== today()) {
+    p.date = today();
+    p.tasks.forEach(t=>{
+      t.done=false;
+      t.bonus=false;
+    });
+    if (!p.carry) {
+      p.stars=0;
+      p.books=0;
+      p.coins=0;
+    }
+    save();
+  }
+
+  $("score").textContent =
+    `⭐ ${p.stars}  📚 ${p.books}  🪙 ${p.coins}`;
+
+  $("progress").textContent =
+    `${p.tasks.filter(t=>t.done).length} von ` +
+    `${p.tasks.length} Aufgaben erledigt`;
+
+  const list = $("taskList");
+  list.replaceChildren();
+
+  for (const task of p.tasks) {
+    const box = document.createElement("div");
+    box.className="card";
+
+    const title = document.createElement("h3");
+    title.textContent=task.name;
+    box.append(title);
+
+    const status = document.createElement("p");
+    status.textContent=task.done?"✓ Erledigt":"Noch offen";
+    box.append(status);
+
+    const done = document.createElement("button");
+    done.textContent=task.done?"Erledigt ✓":"Erledigt";
+    done.disabled=task.done;
+    done.onclick=()=>{
+      task.done=true;
+      p[task.domain]++;
+      save();
+      render();
+    };
+    box.append(done);
+
+    list.append(box);
+  }
+}
+
+$("taskForm").onsubmit=e=>{
+  e.preventDefault();
+  const p=current();
+  p.tasks.push({
+    id:crypto.randomUUID(),
+    name:$("taskName").value.trim(),
+    domain:$("taskDomain").value,
+    code:"",
+    done:false,
+    bonus:false
+  });
+  $("taskForm").reset();
+  save();
+  render();
+};
+
+if (!data) {
+  $("message").textContent =
+    "Bitte zuerst auf der Startseite ein Profil erstellen.";
+  $("taskForm").hidden=true;
+} else {
+  render();
+}
+</script>
+</body>
+</html>
