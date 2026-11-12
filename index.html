@@ -1,69 +1,121 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
+
   <title>Hexenmeister-Akademie</title>
 
   <style>
     body {
-      background: #241537;
+      margin: 0;
+      padding: 25px 15px;
+      background: #17172f;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 30px 15px;
     }
 
     h1 {
-      color: #e4baff;
+      color: #e8c9ff;
     }
 
-    .karte {
-      background: #45305f;
-      border-radius: 20px;
-      padding: 25px;
-      margin: 25px auto;
-      max-width: 400px;
+    .kacheln {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 800px;
+      margin: 30px auto;
     }
 
-    button {
-      background: #e4baff;
-      border: none;
-      border-radius: 12px;
-      padding: 15px 20px;
+    .kachel {
+      background: #353157;
+      border-radius: 18px;
+      padding: 25px 10px;
+      color: white;
+      text-decoration: none;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .kachel:hover,
+    .kachel:focus-visible {
+      background: #514779;
+      outline: 2px solid #e8c9ff;
+    }
+
+    .symbol {
+      font-size: 35px;
+    }
+
+    .kachel strong {
       font-size: 18px;
-      cursor: pointer;
+    }
+
+    .kachel span:last-child {
+      font-size: 13px;
+      color: #d5cfe5;
+    }
+
+    @media (max-width: 360px) {
+      .kacheln {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <h1>🪄 Hexenmeister-Akademie</h1>
+  <p>Entdecke deine magische Welt!</p>
 
-  <p>Willkommen in deiner magischen Welt!</p>
+  <main class="kacheln">
 
-  <div class="karte">
-    <h2>🪥 Der Zahnputzzauber</h2>
+    <a class="kachel" href="akademie.html">
+      <span class="symbol">✨</span>
+      <strong>Zauberakademie</strong>
+      <span>Aufgaben & Abenteuer</span>
+    </a>
 
-    <p>
-      Bist du bereit für deine erste
-      magische Aufgabe?
-    </p>
+    <a class="kachel" href="hexenbuch.html">
+      <span class="symbol">📖</span>
+      <strong>Hexenbuch</strong>
+      <span>Deine Geschichten</span>
+    </a>
 
-    <button onclick="zaubern()">
-      ✨ Zauber starten
-    </button>
-  </div>
+    <a class="kachel" href="karten.html">
+      <span class="symbol">🃏</span>
+      <strong>Zauberkarten</strong>
+      <span>Karten entdecken</span>
+    </a>
 
-  <script>
-    function zaubern() {
-      alert(
-        "Zauberhaft! " +
-        "Deine Zahnputzmission beginnt!"
-      );
-    }
-  </script>
+    <a class="kachel" href="erfolge.html">
+      <span class="symbol">⭐</span>
+      <strong>Zaubererfolge</strong>
+      <span>Sterne sammeln</span>
+    </a>
+
+    <a class="kachel" href="eltern.html">
+      <span class="symbol">👨‍👩‍👧</span>
+      <strong>Elternbereich</strong>
+      <span>Einstellungen</span>
+    </a>
+
+    <a class="kachel" href="hilfe.html">
+      <span class="symbol">❓</span>
+      <strong>Hilfe</strong>
+      <span>So funktioniert's</span>
+    </a>
+
+  </main>
+
+  <p>✨ Lernen · Spielen · Zaubern ✨</p>
+
 </body>
 </html>
